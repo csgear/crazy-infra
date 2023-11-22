@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: postgres:14.9-bookworm
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER:postgres
+      - POSTGRES_PASSWORD:postgres
+      - PGDATA:/var/lib/postgresql/data/pgdata
+    volumes:
+      - "./conf/postgresql.conf:/etc/postgresql/postgresql.conf"
+      - "./data:/var/lib/postgresql/data/"
+    ports:
+      - '5432:5432'
+    networks:
+      - base-env-network
+
+networks:
+  base-env-network:
+    external:
+      name: "base-env-network"

@@ -1,24 +1,24 @@
-version: '3.5'
+version: '3'
 services:
   zookeeper:
-    image: zookeeper:3.4.13
+    image: zookeeper:3.9.0
     restart: always
     container_name: zookeeper
     ports:
-      - 2181:2181
-      - 2888:2888
-      - 3888:3888
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
     networks:
       base-env-network:
         aliases:
           - zookeeper
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/java.env:/usr/local/zookeeper-3.4.13/conf/java.env
-      - ./conf/zoo.cfg:/usr/local/zookeeper-3.4.13/conf/zoo.cfg
+      - ./conf/java.env:/conf/java.env
+      - ./conf/zoo.cfg:/conf/zoo.cfg
       - ./data:/data
       - ./logs:/logs
- 
+
 
 # docker network create base-env-network          
 networks:
