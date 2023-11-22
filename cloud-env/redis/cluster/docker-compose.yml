@@ -1,0 +1,116 @@
+version: '3'
+
+services:
+ redis1:
+  image: redis:7.2
+  restart: always
+  container_name: redis1
+  volumes:
+   - ${PWD}/7001/redis.conf:/etc/redis/redis.conf
+   - ${PWD}/7001/data:/data
+   - ${PWD}/7001/logs:/var/logs
+  environment:
+   - REDIS_PORT=7001
+   - TZ=America/Toronto
+  networks:
+   - base-env-network
+  ports:
+   - 7001:7001
+   - 17001:17001
+  command: ["redis-server","/etc/redis/redis.conf"]
+
+ redis2:
+  image: redis:7.2
+  restart: always
+  container_name: redis2
+  volumes:
+   - ${PWD}/7002/redis.conf:/etc/redis/redis.conf
+   - ${PWD}/7002/data:/data
+   - ${PWD}/7002/logs:/var/logs
+  environment:
+   - REDIS_PORT=7002
+   - TZ=America/Toronto
+  networks:
+   - base-env-network
+  ports:
+   - 7002:7002
+   - 17002:17002
+  command: ["redis-server","/etc/redis/redis.conf"]
+
+ redis3:
+  image: redis:7.2
+  restart: always
+  container_name: redis3
+  volumes:
+   - ${PWD}/7003/redis.conf:/etc/redis/redis.conf
+   - ${PWD}/7003/data:/data
+   - ${PWD}/7003/logs:/var/logs
+  environment:
+   - REDIS_PORT=7003
+   - TZ=America/Toronto
+  networks:
+   - base-env-network
+  ports:
+   - 7003:7003
+   - 17003:17003
+  command: ["redis-server","/etc/redis/redis.conf"]
+
+ redis4:
+  image: redis:7.2
+  restart: always
+  container_name: redis4
+  volumes:
+   - ${PWD}/7004/redis.conf:/etc/redis/redis.conf
+   - ${PWD}/7004/data:/data
+   - ${PWD}/7004/logs:/var/logs
+  environment:
+   - REDIS_PORT=7004
+   - TZ=America/Toronto
+  networks:
+   - base-env-network
+  ports:
+   - 7004:7004
+   - 17004:17004
+  command: ["redis-server","/etc/redis/redis.conf"]
+
+ redis5:
+  image: redis:7.2
+  restart: always
+  container_name: redis5
+  volumes:
+   - ${PWD}/7005/redis.conf:/etc/redis/redis.conf
+   - ${PWD}/7005/data:/data
+   - ${PWD}/7005/logs:/var/logs
+  environment:
+   - REDIS_PORT=7005
+   - TZ=America/Toronto
+  networks:
+   - base-env-network
+  ports:
+   - 7005:7005
+   - 17005:17005
+  command: ["redis-server","/etc/redis/redis.conf"]
+
+ redis6:
+  image: redis:7.2
+  restart: always
+  container_name: redis6
+  volumes:
+   - ${PWD}/7006/redis.conf:/etc/redis/redis.conf
+   - ${PWD}/7006/data:/data
+   - ${PWD}/7006/logs:/var/logs
+  environment:
+   - REDIS_PORT=7006
+   - TZ=America/Toronto
+  ports:
+   - 7006:7006
+   - 17006:17006
+  networks:
+   - base-env-network
+  command: ["redis-server","/etc/redis/redis.conf"]
+
+networks:
+   base-env-network:
+     external: true
+
+

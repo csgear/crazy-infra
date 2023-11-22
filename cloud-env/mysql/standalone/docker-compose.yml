@@ -1,0 +1,25 @@
+version: '3.5'
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    volumes:
+      - "./conf/my.cnf:/etc/mysql/my.cnf"
+      - "./data:/var/lib/mysql"
+      - "./log/mysql/error.log:/var/log/mysql/error.log"
+    environment:
+      TZ: Asia/Shanghai
+      LANG: en_US.UTF-8
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_HOST: '%'
+    command: --character-set-server=utf8 --collation-server=utf8_general_ci
+    networks:
+      - base-env-network
+    ports:
+      - "3306:3306"
+
+networks:
+  base-env-network:
+    external:
+      name: "base-env-network"

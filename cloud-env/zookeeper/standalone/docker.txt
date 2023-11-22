@@ -1,0 +1,21 @@
+mkdir -p  /home/docker-compose/base-env/zookeeper-standalone
+
+cd /home/docker-compose/base-env/zookeeper-standalone
+
+docker-compose down
+ 
+
+rm -rf  /home/docker-compose/base-env/zookeeper-standalone
+
+cp -rf /vagrant/base-env/zookeeper-standalone  /home/docker-compose/base-env
+
+cd /home/docker-compose/base-env
+
+chmod 777 -R  zookeeper-standalone
+
+cd /home/docker-compose/base-env/zookeeper-standalone
+
+docker-compose --compatibility  up  -d
+
+docker-compose  logs -f
+

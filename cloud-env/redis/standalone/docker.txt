@@ -1,0 +1,21 @@
+mkdir -p  /home/docker-compose/base-env/redis-standalone
+
+cd /home/docker-compose/base-env/redis-standalone
+
+docker-compose down
+ 
+
+rm -rf  /home/docker-compose/base-env/redis-standalone
+
+cp -rf /vagrant/base-env/redis-standalone  /home/docker-compose/base-env
+
+cd /home/docker-compose/base-env
+
+chmod 777 -R  redis-standalone
+
+cd /home/docker-compose/base-env/redis-standalone
+
+docker-compose --compatibility  up  -d
+
+docker-compose  logs -f
+

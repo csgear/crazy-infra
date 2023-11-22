@@ -1,0 +1,25 @@
+mkdir -p  /home/docker-compose/base-env/mysql-standalone
+
+cd /home/docker-compose/base-env/mysql-standalone
+
+docker-compose down
+ 
+
+rm -rf  /home/docker-compose/base-env/mysql-standalone
+
+cp -rf /vagrant/base-env/mysql-standalone  /home/docker-compose/base-env
+
+cd /home/docker-compose/base-env
+
+chmod 777 -R  mysql-standalone
+
+cd /home/docker-compose/base-env/mysql-standalone
+
+docker-compose --compatibility  up  -d
+
+docker-compose  logs -f
+
+
+docker exec -it mysql bash
+
+mysql -uroot -p
