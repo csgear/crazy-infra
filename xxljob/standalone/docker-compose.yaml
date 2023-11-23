@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3.8'
 
 services:
   admin:
@@ -10,6 +10,9 @@ services:
       - "8088:8080"
     links:
       - mysql
+    depends_on:
+      mysql:
+        condition: service_healthy
     volumes:
       - ./data/logs:/data/applogs
       - ./data/xxl-job/:/xxl-job
@@ -17,8 +20,6 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/xxl_job?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=America/New_York
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=123456
-    depends_on:
-      - mysql
     networks:
       - xxl_job_net
 
@@ -36,6 +37,11 @@ services:
       #      - "./conf:/etc/mysql/conf.d"
       #      - "./root:/root"
       - "./sql:/docker-entrypoint-initdb.d"
+    healthcheck:
+      test: "mysql $$MYSQL_DATABASE -u$$MYSQL_USER -p$$MYSQL_PASSWORD -e 'SELECT 1;'"
+      interval: 20s
+      timeout: 10s
+      retries: 5
     environment:
       TZ: America/New_York
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
@@ -46,6 +52,7 @@ services:
     ]
     networks:
       - xxl_job_net
+
 networks:
   xxl_job_net:
     driver: bridge
