@@ -44,6 +44,9 @@ services:
       retries: 5
     environment:
       TZ: America/New_York
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: test_user
+      MYSQL_PASSWORD: 123456
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
       MYSQL_ROOT_PASSWORD: 123456 #root管理员用户密码
     command: [
