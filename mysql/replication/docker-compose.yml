@@ -1,0 +1,49 @@
+version: "3.5"
+services:
+  mysql_master:
+    image: mysql:8.0.35
+    container_name: "mysql_master"
+    restart: unless-stopped
+    env_file: .env.mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysqldata_master:/var/lib/mysql
+      - ./master.cnf:/etc/my.cnf
+    environment:
+      - TZ:${TZ}
+      - MYSQL_USER:${MYSQL_USER}
+      - MYSQL_PASSWORD:${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
+    command: [
+      '--character-set-server=utf8mb4',
+      '--collation-server=utf8mb4_unicode_ci'
+    ]
+    networks:
+      - mysqlnetwork
+
+  mysql_slave:
+    image: mysql:8.0.35
+    container_name: "mysql_slave"
+    restart: unless-stopped
+    depends_on:
+      - mysql_master
+    ports:
+      - 3307:3306
+    volumes:
+      - ./mysqldata_slave:/var/lib/mysql
+      - ./slave.cnf:/etc/my.cnf
+    env_file: .env.mysql
+    environment:
+      - TZ:${TZ}
+      - MYSQL_USER:${MYSQL_USER}
+      - MYSQL_PASSWORD:${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
+    command: [
+      '--character-set-server=utf8mb4',
+      '--collation-server=utf8mb4_unicode_ci'
+    ]
+    networks:
+      - mysqlnetwork
+networks:
+  mysqlnetwork:
